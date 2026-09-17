@@ -1,0 +1,52 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile containing authentication identity, role, and profile photo URL",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Authenticated Firebase user UID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full display name of the user",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the user",
+          "maxLength": 120
+        },
+        "role": {
+          "type": "string",
+          "description": "Role of the user (ADMIN, INSPECTOR, VIEWER)",
+          "maxLength": 30
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "Firebase Storage download URL for the user's profile photo",
+          "maxLength": 2048
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "Alternative key for profile photo URL",
+          "maxLength": 2048
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of the profile update",
+          "maxLength": 50
+        }
+      },
+      "required": ["id", "name"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User documents keyed by Firebase Auth UID. Each user can access and update their own document."
+    }
+  }
+}

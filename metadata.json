@@ -1,0 +1,6 @@
+{
+  "name": "SMART INSPECTION",
+  "description": "Smart Real-Time Monitoring & Inspection - Industrial site monitoring, safety checklists, equipment inspection, and defect tracking platform.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
