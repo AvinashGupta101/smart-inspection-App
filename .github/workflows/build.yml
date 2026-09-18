@@ -1,0 +1,43 @@
+name: Build and Test Smart Inspection App
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch: # Allows manual trigger from GitHub Actions UI
+
+jobs:
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: 'package.json'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Type Check / Linter
+        run: npm run lint
+
+      - name: Build Frontend & Server
+        run: npm run build
+        env:
+          NODE_ENV: production
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: smart-inspection-app-dist
+          path: dist/
+          retention-days: 14
